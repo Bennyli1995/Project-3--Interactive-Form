@@ -430,17 +430,29 @@ function createListener(validator) {
 
 // Set up Eventlisteners for all the required fields
 username.addEventListener("keyup", createListener(isNameValid));
-email.addEventListener("keyup", createListener(isEmailValid));
 cardNumber.addEventListener("keyup", createListener(isCardNumberValid));
 zipCode.addEventListener("keyup", createListener(isZipValid));
 CVVNumber.addEventListener("keyup", createListener(isCVV_Valid));
 
-// Create Separate Eventlistener for the Activities 
+// Create Separate Eventlistener for the Events that Users can select to attend
 
 activities.addEventListener("click",()=>{
     isRegisterValid()
 })
 
+
+// Add real time and conditional error message to the email field
+email.addEventListener("keyup",(e)=>{
+    if (e.target.value === ""){
+        e.target.nextElementSibling.style.display = "inherit"
+        e.target.nextElementSibling.textContent = "Email Field Cannot be Left Blank."
+    } else if (!isEmailValid(email.value)){
+        e.target.nextElementSibling.style.display = "inherit"
+        e.target.nextElementSibling.textContent = "Email address must be formatted correctly in the form of example@sample.com"
+    } else {
+        e.target.nextElementSibling.style.display = "none"
+    }
+})
 
 
 
